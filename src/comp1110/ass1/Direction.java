@@ -30,7 +30,7 @@ public enum Direction {
      * @return the `Direction` associated with the char.
      */
     public static Direction fromChar(char direction) {
-        return null; // FIXME Task 2.a (P)
+        return NORTH; // FIXME Task 2.a (P)
     }
 
     /**

@@ -52,7 +52,7 @@ public class Tile {
      * @return An int corresponding to the tile's position on the board.
      */
     public static int placementToPosition(String placement) {
-        return -1;  // FIXME Task 1 (P)
+        return 0;  // FIXME Task 1 (P)
     }
 
     /**
