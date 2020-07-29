@@ -204,8 +204,8 @@ public class TempleTrap {
      * - Each orientation is a direction character (N, E, S, W)
      * - Each position is a number from 0 to 8
      * - No two tiles share a position.
-     * - The peg is *not* placed on a vacant position.
-     * - The peg is *not* located on an UPSTAIRS tile.
+     * - The peg is *not* placed on the vacant position.
+     * - The peg is *not* located on an GREEN tile.
      *
      * @param boardState a string representing a boardState.
      * @return true if the boardState is valid, false if it is invalid.
