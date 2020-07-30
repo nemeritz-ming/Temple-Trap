@@ -110,7 +110,7 @@ public class TempleTrap {
         String rtn = "";
         for (int i = 0; i < 8; i++) {
             Tile t = Tile.getTileFromID(i);
-            rtn += t.getOrientation().toString() + t.position;
+            rtn += t == null ? "--" : t.getOrientation().toString() + t.position;
         }
         rtn += pegPosition;
         return rtn;

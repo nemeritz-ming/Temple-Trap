@@ -173,23 +173,19 @@ public class Game extends Application {
             if (tileID == 'p') {
                 String pathA = templeTrapGame.getPegPathStep(true);
                 String pathB = templeTrapGame.getPegPathStep(false);
-                if (pathA != null || pathB != null) {
-                    return true;
-                }
-            }
-            return templeTrapGame.canMoveTile(Tile.getTileFromID(tileID - 'a'));
+                return (pathA != null || pathB != null);
+            } else
+                return templeTrapGame.canMoveTile(Tile.getTileFromID(tileID - 'a'));
         }
 
         /**
          * Construct a draggable tile/peg
          *
-         * @param placement The placement string for the tile
-         *                  eg: ""
+         * @param placement A string describing the placement of the tile eg "N3"
          */
         DraggableTile(String placement) {
             super(placement.charAt(0));
-            Direction orient = Direction.fromChar(placement.charAt(1));
-            orientation = orient.ordinal();
+            orientation =  (tileID == 'p') ? 0 : Direction.fromChar(placement.charAt(1)).ordinal();
             int position = Character.getNumericValue(placement.charAt(2));
 
             Image image = new Image(Game.class.getResource(URI_BASE + tileID + ".png").toString());

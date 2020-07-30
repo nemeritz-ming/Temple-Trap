@@ -48,8 +48,8 @@ public class CanMoveTileTest {
     };
 
     private void testTrivialTrue() {
-        Objective trivial = new Objective("N4W8", 1);
-        test(trivial, 'a', true);
+        Objective trivial = new Objective("N0W1S2E3N4W5E6S77", 1);
+        test(trivial, 'f', true);
     }
 
 
