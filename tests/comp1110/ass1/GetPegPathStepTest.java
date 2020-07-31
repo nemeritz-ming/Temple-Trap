@@ -55,7 +55,7 @@ public class GetPegPathStepTest {
       test(new Objective("S3S0N6N1W4W5W8E75", 1), 5, false, null);
       test(new Objective("S7E8N5W3W0S6S1N41", 1), 1, true, null);
       // true from Objectives
-      test(OBJECTIVES[0], 0, true, "WWF");
+      test(OBJECTIVES[0], 1, true, "WWF");
       test(OBJECTIVES[6], 3, true, "NWF");
       test(OBJECTIVES[28], 8, true, "WWNE4");
       test(OBJECTIVES[46], 8, true, "WNNW0");
