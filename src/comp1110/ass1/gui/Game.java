@@ -267,8 +267,10 @@ public class Game extends Application {
                 Tile tile = Tile.getTileFromID(tileID - 'a');
                 int gridX = snapXtoGrid(getLayoutX(), 0);
                 int gridY = snapYtoGrid(getLayoutY(), 0);
-                Direction direction = getMoveDir(gridX, gridY);
-                if (direction != null) {
+                int prevPos = getBoardPosition(homeX, homeY);
+                int curPos = getBoardPosition(gridX, gridY);
+                Direction direction = getMoveDir(prevPos, curPos);
+                if (TempleTrap.getNextPosition(prevPos, direction) == curPos) {
                     if (templeTrapGame.isTileMovementValid(tile, direction)) {
                         snapLayoutToGrid(gridX, gridY);
                         setGameBoardPosition();
@@ -282,6 +284,8 @@ public class Game extends Application {
             }
             checkCompletion();
         }
+
+
 
         /**
          * Given an x location, snap it to the appropriate grid location
@@ -332,12 +336,14 @@ public class Game extends Application {
 
         /**
          * Determine the Direction that the tile is moving in.
+         * Note that an invalid movement will always return SOUTH,
+         * we must account for this elsewhere.
          *
+         * @param prevPos the previous position of the tile
+         * @param curPos the current position of the tile
          * @return the Direction that the tile is moving in
          */
-        private Direction getMoveDir(int gridX, int gridY) {
-            int prevPos = getBoardPosition(homeX, homeY);
-            int curPos = getBoardPosition(gridX, gridY);
+        private Direction getMoveDir(int prevPos, int curPos) {
 
             assert prevPos >= 0 && prevPos <= 8 && curPos >= 0 && curPos <= 8;
 
@@ -351,6 +357,7 @@ public class Game extends Application {
                 return NORTH;
             else
                 return SOUTH;
+
         }
 
         /**
