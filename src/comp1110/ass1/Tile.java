@@ -138,7 +138,7 @@ public class Tile {
                 (otherdirA == thisdirB.getOpposite() || otherdirB == thisdirB.getOpposite()))
         {return true;}
         return false;
-    }        // FIXME Task 10 (D)
+    }      // FIXME Task 10 (D)
 
     /** @return the orientation of this tile */
     public Direction getOrientation() { return orientation; }
