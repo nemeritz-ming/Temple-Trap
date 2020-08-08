@@ -437,8 +437,8 @@ public class TempleTrap {
             }
             return null;
         }
-        // FIXME Task 12 (HD)
     }
+    // FIXME Task 12 (HD)
 
     /**
      * Find the solutions to the game (the current TempleTrap object).
