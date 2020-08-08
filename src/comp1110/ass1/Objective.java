@@ -154,7 +154,18 @@ public class Objective {
      */
     public static Objective newObjective(int difficulty) {
         assert difficulty >= 0 && difficulty <= 4;
-        return OBJECTIVES[0]; // FIXME Task 5 (P)
+        int diffrange0 =(int) (Math.random()*(12-1))+1;
+        int diffrange1 =(int) (Math.random()*(24-13))+13;
+        int diffrange2 =(int) (Math.random()*(36-25))+25;
+        int diffrange3 =(int) (Math.random()*(48-37))+37;
+        int diffrange4 =(int) (Math.random()*(60-49))+49;
+        switch (difficulty){
+            case(0):return OBJECTIVES[diffrange0];
+            case(1):return OBJECTIVES[diffrange1];
+            case(2):return OBJECTIVES[diffrange2];
+            case(3):return OBJECTIVES[diffrange3];
+            default:return OBJECTIVES[diffrange4];
+        }// FIXME Task 5
     }
 
     public String getInitialState() {

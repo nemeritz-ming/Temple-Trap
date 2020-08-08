@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class GetPegPathToDestinationTest {
     @Rule
-    public Timeout globalTimeout = Timeout.millis(2000);
+    public Timeout globalTimeout = Timeout.millis(30000);
 
     private void test(Objective objective, int start, char dest, boolean viaA, String expected) {
         TempleTrap game = new TempleTrap(objective);

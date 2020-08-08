@@ -30,7 +30,14 @@ public enum Direction {
      * @return the `Direction` associated with the char.
      */
     public static Direction fromChar(char direction) {
-        return NORTH; // FIXME Task 2.a (P)
+        // FIXME Task 2.a (P)
+        if (!"N".equals(String.valueOf(direction))) {
+            if ("E".equals(String.valueOf(direction))) {return EAST;}
+            else if ("S".equals(String.valueOf(direction))) {return SOUTH;}
+            else return WEST;
+        } else {
+            return NORTH;
+        }
     }
 
     /**
@@ -41,7 +48,7 @@ public enum Direction {
      * @return The first character of the name of the direction
      */
     public char toChar() {
-        return ' ';  // FIXME Task 2.b (P)
+        return this.name().charAt(0);  // FIXME Task 2.b (P)
     }
 
     /**
@@ -50,7 +57,16 @@ public enum Direction {
      * for example: the opposite Direction of 'NORTH' would be 'SOUTH'.
      */
     public Direction getOpposite() {
-       return null; // FIXME Task 3 (P)
+        switch (this) {
+            case NORTH:
+                return SOUTH;
+            case SOUTH:
+                return NORTH;
+            case EAST:
+                return WEST;
+            default:
+                return EAST;
+        }// FIXME Task 3 (P)
     }
 
     /** @return this direction's symbol as a string */

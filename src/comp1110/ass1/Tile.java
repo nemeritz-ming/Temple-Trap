@@ -1,5 +1,7 @@
 package comp1110.ass1;
 
+import java.lang.invoke.SwitchPoint;
+
 /**
  * This class represents a movable tile in the TempleTrap game.   The
  * class encodes which sort of tile it is (tileName), its orientation,
@@ -52,7 +54,7 @@ public class Tile {
      * @return An int corresponding to the tile's position on the board.
      */
     public static int placementToPosition(String placement) {
-        return 0;  // FIXME Task 1 (P)
+        return Integer.parseInt(placement.substring(1,2));// FIXME Task 1 (P)
     }
 
     /**
@@ -64,7 +66,7 @@ public class Tile {
      * @return A value of type `Direction` corresponding to the tile's orientation on board
      */
     public static Direction placementToOrientation(String placement) {
-       return null;  // FIXME Task 2.c (P)
+        return Direction.fromChar(placement.charAt(0));  // FIXME Task 2.c (P)
     }
 
     /**
@@ -80,8 +82,12 @@ public class Tile {
      * they are not adjacent.
      */
     public Direction adjacencyDirection(Tile other) {
-        return null;  // FIXME Task 7 (CR)
-    }
+        if(other.position - 1 == this.position && other.position % 3 >=1) {return Direction.EAST;}
+        else if(other.position + 1 == this.position && other.position % 3 <= 1) {return Direction.WEST;}
+        else if(other.position - 3 == this.position) {return Direction.SOUTH;}
+        else if(other.position + 3 == this.position) {return Direction.NORTH;}
+        else{return null;}
+    }// FIXME Task 7 (CR)
 
     /**
      * Determine whether a peg can move between this tile and another (other).
@@ -100,8 +106,38 @@ public class Tile {
      * @return true if a peg can legally transit from this tile to the other.
      */
     public boolean canTransit(Tile other) {
-        return false;  // FIXME Task 10 (D)
-    }
+        if (adjacencyDirection(other) == null) {return false;}
+        Direction dir = adjacencyDirection(other);
+        Direction otherdirA = other.getTileType().exitAFaces(other.orientation);
+        Direction otherdirB = other.getTileType().exitBFaces(other.orientation);
+        Direction thisdirA = this.getTileType().exitAFaces(this.orientation);
+        Direction thisdirB = this.getTileType().exitBFaces(this.orientation);
+        String thisType = this.getTileType().name();
+        String otherType = other.getTileType().name();
+        if (otherdirA != dir.getOpposite() && otherdirB != dir.getOpposite()){return false;}
+        if (otherType.equals("STAIRCASE") && thisType.equals("STAIRCASE") &&
+                (otherdirA == thisdirA.getOpposite() || otherdirB == thisdirB.getOpposite()))
+        {return true;}
+        if (((otherType.equals("STAIRCASE") && thisType.equals("GREEN_CORNER")) || (otherType.equals("STAIRCASE") && thisType.equals("STRAIGHT"))) &&
+                (otherdirA == thisdirA.getOpposite() || otherdirA == thisdirB.getOpposite()))
+        {return true;}
+        if ((otherType.equals("STAIRCASE") && thisType.equals("BROWN_CORNER")) &&
+                (otherdirB == thisdirA.getOpposite() || otherdirB == thisdirB.getOpposite()))
+        {return true;}
+        if (((otherType.equals("GREEN_CORNER") && thisType.equals("STAIRCASE")) || (otherType.equals("STRAIGHT") && thisType.equals("STAIRCASE"))) &&
+                (otherdirA == thisdirA.getOpposite() || otherdirB == thisdirA.getOpposite()))
+        {return true;}
+        if (((otherType.equals("GREEN_CORNER") || otherType.equals("STRAIGHT")) && (thisType.equals("GREEN_CORNER") || thisType.equals("STRAIGHT"))) &&
+                (otherdirA == thisdirA.getOpposite() || otherdirB == thisdirA.getOpposite() || otherdirA == thisdirB.getOpposite() || otherdirB == thisdirB.getOpposite()))
+        {return true;}
+        if ((otherType.equals("BROWN_CORNER") && thisType.equals("BROWN_CORNER")) &&
+                (otherdirA == thisdirA.getOpposite() || otherdirB == thisdirA.getOpposite() || otherdirA == thisdirB.getOpposite() || otherdirB == thisdirB.getOpposite()))
+        {return true;}
+        if ((otherType.equals("BROWN_CORNER") && thisType.equals("STAIRCASE")) &&
+                (otherdirA == thisdirB.getOpposite() || otherdirB == thisdirB.getOpposite()))
+        {return true;}
+        return false;
+    }        // FIXME Task 10 (D)
 
     /** @return the orientation of this tile */
     public Direction getOrientation() { return orientation; }

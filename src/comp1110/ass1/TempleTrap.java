@@ -211,7 +211,34 @@ public class TempleTrap {
      * @return true if the boardState is valid, false if it is invalid.
      */
     public static boolean isBoardStateValid(String boardState) {
-        return false;  // FIXME Task 4 (P)
+        if (boardState.length() != 17) {
+            return false;
+        }
+        int[] ans = new int[9];
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < 8; ++i) {
+            if (!Character.isDigit(boardState.charAt(2 * i + 1)) || Integer.parseInt(String.valueOf(boardState.charAt(2 * i + 1))) == 9 || Integer.parseInt(String.valueOf(boardState.charAt(16))) == 9) {
+                return false;
+            } else {
+                ans[i] = Integer.parseInt(String.valueOf(boardState.charAt(2 * i + 1)));
+                set.add(ans[i]);
+            }
+        }
+        if (set.size() != 8) {
+            return false;
+        }
+        set.add(Integer.parseInt(String.valueOf(boardState.charAt(16))));
+        if (set.size() != 8) {
+            return false;
+        }
+        for (int i = 0; i < 8; ++i) {
+            if (boardState.charAt(2 * i) != 'N' && boardState.charAt(2 * i) != 'E' && boardState.charAt(2 * i) != 'S' && boardState.charAt(2 * i) != 'W') {
+                return false;
+            }
+        }
+        for (int i = 0; i < 3; ++i){
+            if (Integer.parseInt(String.valueOf(boardState.charAt(16))) == Integer.parseInt(String.valueOf(boardState.charAt(2*i+1)))){return false;}}
+        return true; //  FIXME Task 4 (P)
     }
 
     /**
@@ -223,7 +250,13 @@ public class TempleTrap {
      * finish position, or OFF_BOARD if it is off the board.
      */
     public static int getNextPosition(int pos, Direction dir) {
-        return -3; // FIXME Task 6 (P)
+        if (pos == 0 && dir.toString().equals("W")){return FINISH_POSITION;}
+        switch (dir.toString()){
+            case("S"): if (pos + 3 <= 8){return pos + 3;} else {return OFF_BOARD;}
+            case("N"): if (pos - 3 > 0){return pos - 3;} else if (pos - 3 == 0) {return FINISH_POSITION;} else {return OFF_BOARD;}
+            case("W"): if (pos % 3 >= 1){return pos - 1;} else if (pos - 1 == 0 ){return FINISH_POSITION;} else {return OFF_BOARD;}
+            default: if (pos % 3 <= 1){return pos + 1;} else  {return OFF_BOARD;}
+        }// FIXME Task 6 (P)
     }
 
 
@@ -238,7 +271,20 @@ public class TempleTrap {
      * @return true if the tile can be moved, false otherwise
      */
     public boolean canMoveTile(Tile tile) {
-        return false;  // FIXME Task 8 (CR)
+        if (pegPosition ==tile.position){return false;}
+        String inistate = objective.getInitialState();
+        if (!isBoardStateValid(inistate)){return false;}
+        int[] ans = new int[8];
+        Set<Integer> set1 = new HashSet<>();
+        for (int i = 0; i < 8; ++i) { ans[i] = Integer.parseInt(String.valueOf(inistate.charAt(2 * i + 1)));
+            set1.add(ans[i]);
+        }
+        int nullposition = 10;
+        for (int i = 0; i < 9; ++i){if (!set1.contains(i)){nullposition = i;}}
+        if (nullposition - tile.position == 1 && nullposition % 3 >= 1){return true;}
+        else if (Math.abs(nullposition - tile.position) == 3){return true;}
+        else if (tile.position - nullposition == 1 && nullposition % 3 <= 1){return true;}
+        else {return false;}// FIXME Task 8 (CR)
     }
 
     /**
@@ -253,7 +299,18 @@ public class TempleTrap {
      * @return true if the movement is valid, false if it is invalid.
      */
     public boolean isTileMovementValid(Tile tile, Direction direction) {
-        return false;  // FIXME Task 9 (CR)
+        if (!canMoveTile(tile)){return false;}
+        String inistate = objective.getInitialState();
+        int[] ans = new int[8];
+        Set<Integer> set1 = new HashSet<>();
+        for (int i = 0; i < 8; ++i) { ans[i] = Integer.parseInt(String.valueOf(inistate.charAt(2 * i + 1)));
+            set1.add(ans[i]);
+        }
+        int nullposition = 10;
+        for (int i = 0; i < 9; ++i){if (!set1.contains(i)){nullposition = i;}}
+        if (getNextPosition(tile.position, direction) != nullposition){return false;}
+        else{return true;}
+        // FIXME Task 9 (CR)
     }
 
     /**
@@ -281,8 +338,42 @@ public class TempleTrap {
      * directions and the endpoint), or null if there is no such path.
      */
     public String getPegPathStep(Tile start, boolean viaA) {
-        return null;  // FIXME Task 11 (D)
-    }
+        String inistate = objective.getInitialState();
+        int nextID = -10;
+        if (viaA){
+            if ((start.position == FINISH_POSITION ||start.position == 0) && start.exitAFaces() == Direction.WEST && !start.getTileType().name().equals("BROWN_CORNER")){return "WF";}
+            int nexpos = getNextPosition(start.position,start.exitAFaces());
+            if(nexpos == OFF_BOARD){return null;}
+            if(nexpos == FINISH_POSITION){nexpos = 0;}
+            for (int i=0; i < 8;++i){ if (Integer.parseInt(String.valueOf(inistate.charAt(2*i+1))) == nexpos) {nextID =i;}}
+            if (nextID == -10){return null;}
+            Tile nexttile = Tile.getTileFromID(nextID);
+            if (nexttile.exitAFaces() ==  start.exitAFaces().getOpposite()){viaA = false;}
+            if (!start.canTransit(nexttile)){return null;}
+            else if (start.canTransit(nexttile) && (nexttile.getTileType().name().equals("STAIRCASE") || nexttile.getTileType().name().equals("BROWN_CORNER")))
+                {return start.exitAFaces().toString()+nexpos;}
+            else if (start.canTransit(nexttile) && (nexttile.getTileType().name().equals("STRAIGHT") || nexttile.getTileType().name().equals("GREEN_CORNER"))){
+                if(getPegPathStep(nexttile, viaA) != null){return start.exitAFaces().toString() + getPegPathStep(nexttile, viaA);}
+                else {return null;}}
+        }
+        else{
+            if ((start.position == FINISH_POSITION ||start.position == 0) && start.exitBFaces() == Direction.WEST && !start.getTileType().name().equals("BROWN_CORNER")){return "WF";}
+            int nexpos = getNextPosition(start.position,start.exitBFaces());
+            if(nexpos == OFF_BOARD){return null;}
+            if(nexpos == FINISH_POSITION){nexpos = 0;}
+            for (int i=0; i < 8;++i){ if (Integer.parseInt(String.valueOf(inistate.charAt(2*i+1))) == nexpos) {nextID =i;}}
+            if (nextID == -10){return null;}
+            Tile nexttile = Tile.getTileFromID(nextID);
+            if (nexttile.exitAFaces() !=  start.exitBFaces().getOpposite()){viaA = true;}
+            if (!start.canTransit(nexttile)){return null;}
+            else if (start.canTransit(nexttile) && (nexttile.getTileType().name().equals("STAIRCASE") || nexttile.getTileType().name().equals("BROWN_CORNER")))
+                {return start.exitBFaces().toString()+nexpos;}
+            else if (start.canTransit(nexttile) && (nexttile.getTileType().name().equals("STRAIGHT") || nexttile.getTileType().name().equals("GREEN_CORNER"))){
+                if(getPegPathStep(nexttile, viaA) != null){return start.exitBFaces().toString() + getPegPathStep(nexttile, viaA);}
+                else {return null;}}
+                }
+        return "CNM";
+    }// FIXME Task 11 (D)
 
     /**
      * Return a path for one step of the peg from its current position.
@@ -300,7 +391,7 @@ public class TempleTrap {
      *
      * Starting at position start, exit via exit A if viaA is true, otherwise
      * via exit B, and keep moving the peg for more steps as long as there is a valid way forward.
-     * If there is a path for the peg that goes all the way to the
+     * If there is a path for the peg that goes all the way to
      * finish position, then return a string representing that path.  The
      * string should contain a series of direction characters 'N', 'E', 'S', 'W',
      * or should be null if there is no path to the finish.
@@ -312,7 +403,41 @@ public class TempleTrap {
      * finish position, or null if there is no path.
      */
     public String getPegPathToDestination(Tile start, char dest, boolean viaA) {
-        return null;  // FIXME Task 12 (HD)
+        String prepath = getPegPathStep(start, viaA);
+        if (prepath == null){ return null;}
+        if (viaA){
+            String ans = "";
+            while (getPegPathStep(start, viaA) != null){
+                String newpath = getPegPathStep(start, viaA);
+                ans = ans + newpath.substring(0, newpath.length()-1);
+                if (newpath.charAt(newpath.length()-1) == dest){return ans;}
+                if(newpath.charAt(newpath.length()-1) != 'F'){
+                    int newpos = Integer.parseInt(String.valueOf(newpath.charAt(newpath.length()-1)));
+                    Tile newtile = board[newpos];
+                    String dir = newpath.substring(newpath.length()-2,newpath.length()-1);
+                    if (newtile.exitAFaces().getOpposite().toString().equals(dir)){ viaA = false;}else{viaA = true;}
+                    start = newtile;}
+                else{break;}
+            }
+            return null;
+        }
+        else{
+            String ans = "";
+            while (getPegPathStep(start, viaA) != null){
+                String newpath = getPegPathStep(start, viaA);
+                ans = ans + newpath.substring(0, newpath.length()-1);
+                if (newpath.charAt(newpath.length()-1) == dest){return ans;}
+                if(newpath.charAt(newpath.length()-1) != 'F'){
+                    int newpos = Integer.parseInt(String.valueOf(newpath.charAt(newpath.length()-1)));
+                    Tile newtile = board[newpos];
+                    String dir = newpath.substring(newpath.length()-2,newpath.length()-1);
+                    if (newtile.exitBFaces().getOpposite().toString().equals(dir)){viaA = true;}else{viaA = false;}
+                    start = newtile;}
+                else{break;}
+            }
+            return null;
+        }
+        // FIXME Task 12 (HD)
     }
 
     /**
