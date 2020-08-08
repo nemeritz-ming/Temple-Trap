@@ -66,8 +66,9 @@ public class Tile {
      * @return A value of type `Direction` corresponding to the tile's orientation on board
      */
     public static Direction placementToOrientation(String placement) {
-        return Direction.fromChar(placement.charAt(0));  // FIXME Task 2.c (P)
+        return Direction.fromChar(placement.charAt(0));
     }
+    // FIXME Task 2.c (P)
 
     /**
      * Determine whether a given tile is adjacent to this tile instance,
