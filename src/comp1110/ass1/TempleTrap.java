@@ -238,8 +238,9 @@ public class TempleTrap {
         }
         for (int i = 0; i < 3; ++i){
             if (Integer.parseInt(String.valueOf(boardState.charAt(16))) == Integer.parseInt(String.valueOf(boardState.charAt(2*i+1)))){return false;}}
-        return true; //  FIXME Task 4 (P)
+        return true;
     }
+    //  FIXME Task 4 (P)
 
     /**
      * Given a position and a direction to move in, determine the next position.
