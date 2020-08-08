@@ -165,9 +165,9 @@ public class Objective {
             case(2):return OBJECTIVES[diffrange2];
             case(3):return OBJECTIVES[diffrange3];
             default:return OBJECTIVES[diffrange4];
-        }// FIXME Task 5
+        }
     }
-
+    // FIXME Task 5
     public String getInitialState() {
         return initialState;
     }
