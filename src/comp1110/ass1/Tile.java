@@ -54,8 +54,8 @@ public class Tile {
      * @return An int corresponding to the tile's position on the board.
      */
     public static int placementToPosition(String placement) {
-        return Integer.parseInt(placement.substring(1,2));// FIXME Task 1 (P)
-    }
+        return Integer.parseInt(placement.substring(1,2));
+    }// FIXME Task 1 (P)
 
     /**
      * Given a two-character tile placement string, decode the tile's orientation.
