@@ -481,7 +481,7 @@ public class TempleTrap {
                 }
             }
         }
-        return "CNM";
+        return null;
     }// FIXME Task 11 (D)
 
     /**
