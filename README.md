@@ -1,4 +1,4 @@
-# COMP1110 Assignment 1
+# Temple Trap
 
 ## Academic Honesty and Integrity
 
@@ -27,25 +27,6 @@ This assignment is introductory, helping you gain familiarity with the basics
 of Java, but doing so in the context of slightly larger piece of code.  Most
 of the assignment is composed of a series of small tasks.
 
-## Assignment Deliverable
-
-The assignment is worth 5% of your total assessment, and it will be marked out
-of 5. However, these marks are [redeemable](https://cs.anu.edu.au/courses/comp1110/assessments/redeemable/) by the exam, so if your exam mark / 20
-is higher than your assignment one mark, you will get the exam mark / 20 rather
-than the assignment one mark. **The mark breakdown is described on the
-[deliverables](https://cs.anu.edu.au/courses/comp1110/assessments/deliverables/#D1A) page.**
-
-The assignment is due at **[12:45pm Friday Week 3](https://www.timeanddate.com/worldclock/fixedtime.html?msg=Assignment+1+Due&iso=20200814T0245&p1=%253A),
-14 August 2020** ([time remaining](https://www.timeanddate.com/countdown/generic?p0=1440&iso=20200814T0245&msg=Assignment%201%20Due)).
-You can find [this deadline](https://cs.anu.edu.au/courses/comp1110/assessments/deliverables/#D1A)
-on the [deliverables page](https://cs.anu.edu.au/courses/comp1110/assessments/deliverables/), where all assignment deadlines for this semester are
-listed.
-Your tutor will mark your assignment by accessing your GitLab repository, so it is essential that you carefully follow
-instructions for setting up and maintaining your repository. You will be marked
-according to **whatever is committed to your repository at the time of the deadline**.
-Since the first assignment is redeemable, **[late extensions
-are not offered and will not be given](https://cs.anu.edu.au/courses/comp1110/deadlines/)**. As always, throughout the course, if
-some significant circumstance arises outside of the course that affects your capacity to complete the course, please carefully follow the ANU's [special consideration process](http://www.anu.edu.au/students/program-administration/assessments-exams/special-assessment-consideration), and your circumstances will be accounted for in your final assessment.
 
 ## Overview
 
@@ -267,36 +248,4 @@ b) you acknowledged that you had done so. Notice, however, that if you
 were to do this you would have no original contribution and so would
 receive no marks for the assignment (but you would not have broken any
 rules either).
-
-## Evaluation Criteria
-
-**The mark breakdown is described on the
-[deliverables](https://cs.anu.edu.au/courses/comp1110/assessments/deliverables/#D1A) page.**
-
-<a name="p"></a>
-**Pass**
-* Tasks #1, #2, #3, #4, #5, and #6
-
-<a name="cr"></a>
-**Credit**
-* Tasks #7, #8, and #9 *(in addition to all tasks required for Pass)*
-
-<a name="d"></a>
-**Distinction**
-* Tasks #10 and #11 *(in addition to all tasks required for Credit)*
-
-<a name="hd"></a>
-**High Distinction**
-* Tasks #12 and #13 *(in addition to all tasks required for Distinction)*
-
-**IMPORTANT NOTE:** *It is very important that you understand that you are* **not**
-*required to complete all elements of the
-assignment. In fact, you are not encouraged to pursue the Distinction and High
-Distinction tasks unless you feel motivated and able to do so. Recall that the
-assignment is redeemable against the exam. The last parts of the assignment are
-significantly harder than the others, but together worth only one additional mark. I
-don't encourage you to spend too much time on this unless you are enjoying the
-challenge of solving these harder problems.  Solutions to tasks #12 and #13
-involve ideas that I have* **not covered**, *or not covered deeply in class; you may
-need to go beyond the course material.*
 
