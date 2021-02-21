@@ -1,26 +1,5 @@
 # Temple Trap
 
-## Academic Honesty and Integrity
-
-Honesty and integrity are of utmost importance. These goals are *not* at odds
-with being resourceful and working collaboratively. You *should* be resourceful
-and you should discuss the assignment
-and other aspects of the course with others taking the class. However, *you must
-never misrepresent the work of others as your own*. If you have taken ideas from
-elsewhere or used code sourced from elsewhere, you must say so with *utmost
-clarity*. At each stage of the assignment you will be asked to submit a statement
-of originality, either as a group or as individuals. This statement is the place
-for you to declare which ideas or code contained in your submission were sourced
-from elsewhere.
-
-Please read the ANU's [official position](http://academichonesty.anu.edu.au/) on
-academic honesty. If you have any questions, please ask me.
-
-Carefully review the [statement of originality](originality.yml) which you must
-complete.  Edit that statement and update it as you complete the assignment,
-ensuring that when you complete the assignment, a truthful statement is committed
-and pushed to your repo.
-
 ## Purpose
 
 This assignment is introductory, helping you gain familiarity with the basics
